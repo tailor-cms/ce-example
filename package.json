@@ -1,0 +1,47 @@
+{
+  "name": "@tailor-cms/ce-example",
+  "description": "Example content element",
+  "version": "0.0.1",
+  "author": "underscope <underscope@gmail.com> (https://github.com/underscope)",
+  "type": "module",
+  "exports": {
+    "./edit": {
+      "import": "./packages/edit/dist/index.js",
+      "require": "./packages/edit/dist/index.cjs"
+    },
+    "./display": {
+      "import": "./packages/display/dist/index.js",
+      "require": "./packages/display/dist/index.cjs"
+    },
+    "./server": {
+      "import": "./packages/server/dist/index.js",
+      "require": "./packages/server/dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "concurrently 'pnpm boot:cek' 'pnpm boot:display' -n cek,display-runtime -c blue,cyan",
+    "boot:cek": "cd ./node_modules/@tailor-cms/tce-boot && pnpm start",
+    "boot:display": "export TCE_DISPLAY_DIR=${PWD}/packages/display/dist && cd ./node_modules/@tailor-cms/tce-display-runtime && pnpm vite optimize && pnpm dev",
+    "build": "pnpm -r run build",
+    "lint": "pnpm -r run lint",
+    "lint:fix": "pnpm -r run lint --fix",
+    "test": "pnpm playwright test --config ./test/playwright.config.ts"
+  },
+  "bin": {
+    "@tailor-cms/tce-template": "bin/index.cjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.41.1",
+    "@tailor-cms/eslint-config": "0.0.2",
+    "@tailor-cms/tce-boot": "0.5.0",
+    "@tailor-cms/tce-display-runtime": "0.4.0",
+    "@types/node": "^20.5.7",
+    "concurrently": "^8.2.2",
+    "prettier": "3.1.1",
+    "typescript": "^5.1.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@9.1.2+sha512.127dc83b9ea10c32be65d22a8efb4a65fb952e8fefbdfded39bdc3c97efc32d31b48b00420df2c1187ace28c921c902f0cb5a134a4d032b8b5295cbfa2c681e2"
+}
